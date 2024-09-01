@@ -11,4 +11,5 @@ public static class Utility
     public const byte ToggleFlashingEventCode = 9;
     public const byte MoveLeftJEventCode = 10;
     public const byte MoveRightJEventCode = 11;
+    public const byte PauseTrackerCode = 12;
 }

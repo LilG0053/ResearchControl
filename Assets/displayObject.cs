@@ -16,6 +16,7 @@ public class displayObject : MonoBehaviour
     private Vector3 changeVector;
     private int imageIndex;
     private bool isFlashing;
+    
 
     void Start()
     {
