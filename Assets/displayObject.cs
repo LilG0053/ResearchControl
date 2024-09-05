@@ -40,12 +40,12 @@ public class displayObject : MonoBehaviour
 
     public void moveRight()
     {
-        changeVector = new Vector3(0.05f, 0, 0);
+        changeVector = new Vector3(0.45f, 0, 0);
         gameObject.transform.position += movementMagnitute * changeVector;
     }
     public void moveLeft()
     {
-        changeVector = new Vector3(-0.05f, 0, 0);
+        changeVector = new Vector3(-0.45f, 0, 0);
         gameObject.transform.position += movementMagnitute * changeVector;
     }
     public void moveUp()
@@ -55,7 +55,7 @@ public class displayObject : MonoBehaviour
     }
     public void moveDown()
     {
-        changeVector = new Vector3(0, -0.051f, 0);
+        changeVector = new Vector3(0, -0.05f, 0);
         gameObject.transform.position += movementMagnitute * changeVector;
     }
     public void scaleUp()
