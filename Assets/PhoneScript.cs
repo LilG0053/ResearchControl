@@ -1,12 +1,21 @@
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PhoneScript : MonoBehaviourPunCallbacks
 {
+    struct LeftRightPosition
+    {
+        public int leftRights; // negative value indicates left, positive value indicates right
+        public int leftRightJs; // negative value indicates left, positive value indicates right
+    }
+    
+    private LeftRightPosition savedPosition = new LeftRightPosition{leftRights=0, leftRightJs=0};
+    private LeftRightPosition currentPosition = new LeftRightPosition{leftRights=0, leftRightJs=0};
 
     private void Awake()
     {
@@ -37,12 +46,14 @@ public class PhoneScript : MonoBehaviourPunCallbacks
        // object[] content = new object[] {"hiiiiiii"}; // Array contains the target position and the IDs of the selected units
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others }; // You would have to set the Receivers to All in order to receive this event on the local client as well
         PhotonNetwork.RaiseEvent(Utility.MoveLeftEventCode, null, raiseEventOptions, SendOptions.SendReliable);
+        currentPosition.leftRights--;
     }    
     public void LeftJButtonClicked()
     {
        // object[] content = new object[] {"hiiiiiii"}; // Array contains the target position and the IDs of the selected units
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others }; // You would have to set the Receivers to All in order to receive this event on the local client as well
         PhotonNetwork.RaiseEvent(Utility.MoveLeftJEventCode, null, raiseEventOptions, SendOptions.SendReliable);
+        currentPosition.leftRightJs--;
     }
 
     public void RightButtonClicked()
@@ -50,12 +61,15 @@ public class PhoneScript : MonoBehaviourPunCallbacks
         // object[] content = new object[] {"hiiiiiii"}; // Array contains the target position and the IDs of the selected units
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others }; // You would have to set the Receivers to All in order to receive this event on the local client as well
         PhotonNetwork.RaiseEvent(Utility.MoveRightEventCode, null, raiseEventOptions, SendOptions.SendReliable);
+        currentPosition.leftRights++;
     }
+
     public void RightJButtonClicked()
     {
         // object[] content = new object[] {"hiiiiiii"}; // Array contains the target position and the IDs of the selected units
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others }; // You would have to set the Receivers to All in order to receive this event on the local client as well
         PhotonNetwork.RaiseEvent(Utility.MoveRightJEventCode, null, raiseEventOptions, SendOptions.SendReliable);
+        currentPosition.leftRightJs++;
     }
 
     public void UpButtonClicked()
@@ -111,5 +125,50 @@ public class PhoneScript : MonoBehaviourPunCallbacks
     {
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others }; // You would have to set the Receivers to All in order to receive this event on the local client as well
         PhotonNetwork.RaiseEvent(Utility.PauseTrackerCode, null, raiseEventOptions, SendOptions.SendReliable);
+    }
+
+    public void SaveButtonClicked()
+    {
+        savedPosition.leftRights = currentPosition.leftRights;
+        savedPosition.leftRightJs = currentPosition.leftRightJs;
+    }
+
+    public void LoadButtonClicked()
+    {
+        int leftRightDiff = savedPosition.leftRights - currentPosition.leftRights;
+        if (leftRightDiff < 0)
+        {
+            int lefts = Math.Abs(leftRightDiff);
+            for (int i = 0; i < lefts; i++)
+            {
+                LeftButtonClicked();
+            }
+        }
+        else
+        {
+            int rights = leftRightDiff;
+            for (int i = 0; i < rights; i++)
+            {
+                RightButtonClicked();
+            }
+        }
+
+        int leftRightJDiff = savedPosition.leftRightJs - currentPosition.leftRightJs;
+        if (leftRightJDiff < 0)
+        {
+            int lefts = Math.Abs(leftRightJDiff);
+            for (int i = 0; i < lefts; i++)
+            {
+                LeftJButtonClicked();
+            }
+        }
+        else
+        {
+            int rights = leftRightJDiff;
+            for (int i = 0; i < rights; i++)
+            {
+                RightJButtonClicked();
+            }
+        }
     }
 }
