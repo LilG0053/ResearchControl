@@ -12,6 +12,10 @@ public class PhoneScript : MonoBehaviourPunCallbacks
     {
         public int leftRights; // negative value indicates left, positive value indicates right
         public int leftRightJs; // negative value indicates left, positive value indicates right
+        public int leftRights1; // negative value indicates left, positive value indicates right
+        public int leftRightJs1; // negative value indicates left, positive value indicates right
+        public int leftRights2; // negative value indicates left, positive value indicates right
+        public int leftRightJs2; // negative value indicates left, positive value indicates right
     }
     
     private LeftRightPosition savedPosition = new LeftRightPosition{leftRights=0, leftRightJs=0};
@@ -127,15 +131,50 @@ public class PhoneScript : MonoBehaviourPunCallbacks
         PhotonNetwork.RaiseEvent(Utility.PauseTrackerCode, null, raiseEventOptions, SendOptions.SendReliable);
     }
 
-    public void SaveButtonClicked()
+    public void SaveButtonClicked(int num)
     {
-        savedPosition.leftRights = currentPosition.leftRights;
-        savedPosition.leftRightJs = currentPosition.leftRightJs;
-    }
+        switch (num)
+        {
+            case 0:
+                savedPosition.leftRights = currentPosition.leftRights;
+                savedPosition.leftRightJs = currentPosition.leftRightJs;
+                break;
+            case 1:
+                savedPosition.leftRights1 = currentPosition.leftRights;
+                savedPosition.leftRightJs1 = currentPosition.leftRightJs;
+                break;
+            case 2:
+                savedPosition.leftRights1 = currentPosition.leftRights;
+                savedPosition.leftRightJs2 = currentPosition.leftRightJs;
+                break;
+            default:
+                break;
+        }
+            
 
-    public void LoadButtonClicked()
+
+        }
+
+    public void LoadButtonClicked(int num)
     {
-        int leftRightDiff = savedPosition.leftRights - currentPosition.leftRights;
+        int leftRightDiff = 0;
+        int leftRightJDiff = 0; 
+        switch (num)
+        {
+            case 0:
+                leftRightDiff = savedPosition.leftRights - currentPosition.leftRights;
+                leftRightJDiff = savedPosition.leftRightJs - currentPosition.leftRightJs;
+                break;
+            case 1:
+                leftRightDiff = savedPosition.leftRights1 - currentPosition.leftRights;
+                leftRightJDiff = savedPosition.leftRightJs1 - currentPosition.leftRightJs;
+                break;
+            case 2:
+                leftRightDiff = savedPosition.leftRights2 - currentPosition.leftRights;
+                leftRightJDiff = savedPosition.leftRightJs2 - currentPosition.leftRightJs;
+                break;
+        }
+         
         if (leftRightDiff < 0)
         {
             int lefts = Math.Abs(leftRightDiff);
@@ -153,7 +192,7 @@ public class PhoneScript : MonoBehaviourPunCallbacks
             }
         }
 
-        int leftRightJDiff = savedPosition.leftRightJs - currentPosition.leftRightJs;
+        
         if (leftRightJDiff < 0)
         {
             int lefts = Math.Abs(leftRightJDiff);
