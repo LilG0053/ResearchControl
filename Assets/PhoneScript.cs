@@ -5,6 +5,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class PhoneScript : MonoBehaviourPunCallbacks
 {
@@ -18,8 +20,10 @@ public class PhoneScript : MonoBehaviourPunCallbacks
         public int leftRightJs2; // negative value indicates left, positive value indicates right
     }
     
-    private LeftRightPosition savedPosition = new LeftRightPosition{leftRights=0, leftRightJs=0};
-    private LeftRightPosition currentPosition = new LeftRightPosition{leftRights=0, leftRightJs=0};
+    private LeftRightPosition savedPosition = new LeftRightPosition{leftRights=0, leftRightJs=0, leftRights1=0, leftRightJs1=0, leftRights2=0, leftRightJs2=0};
+    private LeftRightPosition currentPosition = new LeftRightPosition{leftRights=0, leftRightJs=0, leftRights1=0, leftRightJs1=0, leftRights2=0, leftRightJs2=0};
+
+    private string positionDataPath = Application.persistentDataPath + "/positionData.dat";
 
     private void Awake()
     {
@@ -138,25 +142,27 @@ public class PhoneScript : MonoBehaviourPunCallbacks
             case 0:
                 savedPosition.leftRights = currentPosition.leftRights;
                 savedPosition.leftRightJs = currentPosition.leftRightJs;
+                saveToFile(positionDataPath);
                 break;
             case 1:
                 savedPosition.leftRights1 = currentPosition.leftRights;
                 savedPosition.leftRightJs1 = currentPosition.leftRightJs;
+                saveToFile(positionDataPath);
                 break;
             case 2:
                 savedPosition.leftRights1 = currentPosition.leftRights;
                 savedPosition.leftRightJs2 = currentPosition.leftRightJs;
+                saveToFile(positionDataPath);
                 break;
             default:
                 break;
         }
-            
-
-
-        }
+    }
 
     public void LoadButtonClicked(int num)
     {
+        loadFromFile(positionDataPath);
+
         int leftRightDiff = 0;
         int leftRightJDiff = 0; 
         switch (num)
@@ -209,5 +215,33 @@ public class PhoneScript : MonoBehaviourPunCallbacks
                 RightJButtonClicked();
             }
         }
+    }
+
+    private void saveToFile(string path)
+    {
+        FileStream file;
+
+		if (File.Exists(path)) file = File.OpenWrite(path);
+		else file = File.Create(path);
+
+        BinaryFormatter bf = new BinaryFormatter();
+		bf.Serialize(file, savedPosition);
+		file.Close();
+    }
+
+    private void loadFromFile(string path)
+    {
+		FileStream file;
+
+		if (File.Exists(path)) file = File.OpenRead(path);
+		else
+		{
+			Debug.LogError("File not found");
+			return;
+		}
+
+		BinaryFormatter bf = new BinaryFormatter();
+		savedPosition = (LeftRightPosition) bf.Deserialize(file);
+		file.Close();
     }
 }
