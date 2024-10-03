@@ -12,4 +12,6 @@ public static class Utility
     public const byte MoveLeftJEventCode = 10;
     public const byte MoveRightJEventCode = 11;
     public const byte PauseTrackerCode = 12;
+    public const byte ToggleOneEyeEventCode = 13;
+    public const byte ToggleOneEyeFlashEventCode = 14;
 }

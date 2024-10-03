@@ -244,4 +244,18 @@ public class PhoneScript : MonoBehaviourPunCallbacks
 		savedPosition = (LeftRightPosition) bf.Deserialize(file);
 		file.Close();
     }
+
+    public void ToggleOneEye()
+    {
+        // object[] content = new object[] {"hiiiiiii"}; // Array contains the target position and the IDs of the selected units
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others }; // You would have to set the Receivers to All in order to receive this event on the local client as well
+        PhotonNetwork.RaiseEvent(Utility.ToggleOneEyeEventCode, null, raiseEventOptions, SendOptions.SendReliable);
+    }
+
+    public void ToggleOneEyeFlash()
+    {
+        // object[] content = new object[] {"hiiiiiii"}; // Array contains the target position and the IDs of the selected units
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others }; // You would have to set the Receivers to All in order to receive this event on the local client as well
+        PhotonNetwork.RaiseEvent(Utility.ToggleOneEyeFlashEventCode, null, raiseEventOptions, SendOptions.SendReliable);
+    }
 }
