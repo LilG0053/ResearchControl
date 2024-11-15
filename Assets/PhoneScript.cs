@@ -111,7 +111,7 @@ public class PhoneScript : MonoBehaviourPunCallbacks
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others };
         PhotonNetwork.RaiseEvent(Utility.ToggleFlashingEventCode, null, raiseEventOptions, SendOptions.SendReliable);
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(3); // hard coded 3s
 
         PhotonNetwork.RaiseEvent(Utility.ToggleFlashingEventCode, null, raiseEventOptions, SendOptions.SendReliable);
     }
