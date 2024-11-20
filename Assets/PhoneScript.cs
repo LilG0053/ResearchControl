@@ -101,6 +101,22 @@ public class PhoneScript : MonoBehaviourPunCallbacks
         PhotonNetwork.RaiseEvent(Utility.ToggleFlashingEventCode, null, raiseEventOptions, SendOptions.SendReliable);
     }
 
+    public void TimedFlashClicked()
+    {
+        StartCoroutine(TimedFlashCoroutine());
+    }
+
+    private IEnumerator TimedFlashCoroutine()
+    {
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others };
+        PhotonNetwork.RaiseEvent(Utility.ToggleFlashingEventCode, null, raiseEventOptions, SendOptions.SendReliable);
+
+        yield return new WaitForSeconds(3); // hard coded 3s
+
+        PhotonNetwork.RaiseEvent(Utility.ToggleFlashingEventCode, null, raiseEventOptions, SendOptions.SendReliable);
+    }
+
+
     public void ScaleUpButtonClicked()
     {
         // object[] content = new object[] {"hiiiiiii"}; // Array contains the target position and the IDs of the selected units
