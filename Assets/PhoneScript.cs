@@ -24,6 +24,8 @@ public class PhoneScript : MonoBehaviourPunCallbacks
     private LeftRightPosition currentPosition = new LeftRightPosition{leftRights=0, leftRightJs=0, leftRights1=0, leftRightJs1=0, leftRights2=0, leftRightJs2=0};
 
     private string positionDataPath = Application.persistentDataPath + "/positionData.dat";
+    private bool isTimedFlashing = false;
+    private float cumTime = 0.0f;
 
     private void Awake()
     {
@@ -32,6 +34,7 @@ public class PhoneScript : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+        isTimedFlashing = false;
         PhotonNetwork.ConnectUsingSettings();
     }
 
@@ -46,7 +49,7 @@ public class PhoneScript : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void LeftButtonClicked()
@@ -103,17 +106,30 @@ public class PhoneScript : MonoBehaviourPunCallbacks
 
     public void TimedFlashClicked()
     {
-        StartCoroutine(TimedFlashCoroutine());
+        isTimedFlashing = !isTimedFlashing;
+        StartCoroutine(TimedFlashOnCoroutine());
     }
 
-    private IEnumerator TimedFlashCoroutine()
+    private IEnumerator TimedFlashOnCoroutine()
     {
-        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others };
-        PhotonNetwork.RaiseEvent(Utility.ToggleFlashingEventCode, null, raiseEventOptions, SendOptions.SendReliable);
+        if (isTimedFlashing)
+        {
+            RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others };
+            PhotonNetwork.RaiseEvent(Utility.ToggleFlashingEventCode, null, raiseEventOptions, SendOptions.SendReliable);
 
-        yield return new WaitForSeconds(3); // hard coded 3s
+            yield return new WaitForSeconds(10); // hard coded 5s
 
-        PhotonNetwork.RaiseEvent(Utility.ToggleFlashingEventCode, null, raiseEventOptions, SendOptions.SendReliable);
+            PhotonNetwork.RaiseEvent(Utility.ToggleFlashingEventCode, null, raiseEventOptions, SendOptions.SendReliable);
+            StartCoroutine(TimedFlashOffCoroutine());
+        }     
+    }
+    private IEnumerator TimedFlashOffCoroutine()
+    {
+        if (isTimedFlashing)
+        {
+            yield return new WaitForSeconds(20); // hard coded 25s
+            StartCoroutine(TimedFlashOnCoroutine());
+        }
     }
 
 
