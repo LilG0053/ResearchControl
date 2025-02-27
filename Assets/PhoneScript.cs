@@ -23,12 +23,13 @@ public class PhoneScript : MonoBehaviourPunCallbacks
     private LeftRightPosition savedPosition = new LeftRightPosition{leftRights=0, leftRightJs=0, leftRights1=0, leftRightJs1=0, leftRights2=0, leftRightJs2=0};
     private LeftRightPosition currentPosition = new LeftRightPosition{leftRights=0, leftRightJs=0, leftRights1=0, leftRightJs1=0, leftRights2=0, leftRightJs2=0};
 
-    private string positionDataPath = Application.persistentDataPath + "/positionData.dat";
+    private string positionDataPath;
     private bool isTimedFlashing = false;
     private float cumTime = 0.0f;
 
     private void Awake()
     {
+        positionDataPath = Application.persistentDataPath + "/positionData.dat";
     }
 
     // Start is called before the first frame update
