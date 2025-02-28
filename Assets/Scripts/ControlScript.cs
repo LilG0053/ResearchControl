@@ -8,7 +8,7 @@ using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-public class PhoneScript : MonoBehaviourPunCallbacks
+public class ContolScript : MonoBehaviourPunCallbacks
 {
     struct LeftRightPosition
     {
@@ -24,18 +24,16 @@ public class PhoneScript : MonoBehaviourPunCallbacks
     private LeftRightPosition currentPosition = new LeftRightPosition{leftRights=0, leftRightJs=0, leftRights1=0, leftRightJs1=0, leftRights2=0, leftRightJs2=0};
 
     private string positionDataPath;
-    private bool isTimedFlashing = false;
-    private float cumTime = 0.0f;
 
     private void Awake()
     {
+        positionDataPath = Application.persistentDataPath + "/positionData.dat";
         positionDataPath = Application.persistentDataPath + "/positionData.dat";
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        isTimedFlashing = false;
         PhotonNetwork.ConnectUsingSettings();
     }
 
@@ -98,41 +96,26 @@ public class PhoneScript : MonoBehaviourPunCallbacks
         PhotonNetwork.RaiseEvent(Utility.MoveDownEventCode, null, raiseEventOptions, SendOptions.SendReliable);
     }
 
-    public void FlashingButtonClicked()
+    public void EnableFlashing(bool enabled)
     {
-        // object[] content = new object[] {"hiiiiiii"}; // Array contains the target position and the IDs of the selected units
-        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others }; // You would have to set the Receivers to All in order to receive this event on the local client as well
-        PhotonNetwork.RaiseEvent(Utility.ToggleFlashingEventCode, null, raiseEventOptions, SendOptions.SendReliable);
-    }
-
-    public void TimedFlashClicked()
-    {
-        isTimedFlashing = !isTimedFlashing;
-        StartCoroutine(TimedFlashOnCoroutine());
-    }
-
-    private IEnumerator TimedFlashOnCoroutine()
-    {
-        if (isTimedFlashing)
+        if (enabled)
         {
-            RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others };
-            PhotonNetwork.RaiseEvent(Utility.ToggleFlashingEventCode, null, raiseEventOptions, SendOptions.SendReliable);
-
-            yield return new WaitForSeconds(5); // hard coded 5s
-
-            PhotonNetwork.RaiseEvent(Utility.ToggleFlashingEventCode, null, raiseEventOptions, SendOptions.SendReliable);
-            StartCoroutine(TimedFlashOffCoroutine());
-        }     
-    }
-    private IEnumerator TimedFlashOffCoroutine()
-    {
-        if (isTimedFlashing)
+            // object[] content = new object[] {"hiiiiiii"}; // Array contains the target position and the IDs of the selected units
+            RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others }; // You would have to set the Receivers to All in order to receive this event on the local client as well
+            PhotonNetwork.RaiseEvent(Utility.EnableFlashingEventCode, null, raiseEventOptions, SendOptions.SendReliable);
+        } else 
         {
-            yield return new WaitForSeconds(20); // hard coded 25s
-            StartCoroutine(TimedFlashOnCoroutine());
+            RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others }; // You would have to set the Receivers to All in order to receive this event on the local client as well
+            PhotonNetwork.RaiseEvent(Utility.DisableFlashingEventCode, null, raiseEventOptions, SendOptions.SendReliable);
         }
     }
 
+    public void Flash()
+    {
+        // object[] content = new object[] {"hiiiiiii"}; // Array contains the target position and the IDs of the selected units
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others }; // You would have to set the Receivers to All in order to receive this event on the local client as well
+        PhotonNetwork.RaiseEvent(Utility.ShowScreenEventCode, null, raiseEventOptions, SendOptions.SendReliable);
+    }
 
     public void ScaleUpButtonClicked()
     {
@@ -168,30 +151,39 @@ public class PhoneScript : MonoBehaviourPunCallbacks
         PhotonNetwork.RaiseEvent(Utility.PauseTrackerCode, null, raiseEventOptions, SendOptions.SendReliable);
     }
 
-    public void SaveButtonClicked(int num)
+    public void setBlue()
     {
-        switch (num)
-        {
-            case 0:
-                savedPosition.leftRights = currentPosition.leftRights;
-                savedPosition.leftRightJs = currentPosition.leftRightJs;
-                saveToFile(positionDataPath);
-                break;
-            case 1:
-                savedPosition.leftRights1 = currentPosition.leftRights;
-                savedPosition.leftRightJs1 = currentPosition.leftRightJs;
-                saveToFile(positionDataPath);
-                break;
-            case 2:
-                savedPosition.leftRights1 = currentPosition.leftRights;
-                savedPosition.leftRightJs2 = currentPosition.leftRightJs;
-                saveToFile(positionDataPath);
-                break;
-            default:
-                break;
-        }
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others }; // You would have to set the Receivers to All in order to receive this event on the local client as well
+        PhotonNetwork.RaiseEvent(Utility.BlueScreen, null, raiseEventOptions, SendOptions.SendReliable);
     }
 
+    public void setWhite()
+    {
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others }; // You would have to set the Receivers to All in order to receive this event on the local client as well
+        PhotonNetwork.RaiseEvent(Utility.WhiteScreen, null, raiseEventOptions, SendOptions.SendReliable);
+    }
+
+    public void SelectFOV(int FOV)
+    {
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others }; // You would have to set the Receivers to All in order to receive this event on the local client as well
+        switch (FOV)
+        {
+            case 30:
+                PhotonNetwork.RaiseEvent(Utility.Toggle30FOV, null, raiseEventOptions, SendOptions.SendReliable);
+                break;
+            case 60:
+                PhotonNetwork.RaiseEvent(Utility.Toggle60FOV, null, raiseEventOptions, SendOptions.SendReliable);
+                break;
+            case 70:
+                PhotonNetwork.RaiseEvent(Utility.Toggle70FOV, null, raiseEventOptions, SendOptions.SendReliable);
+                break;
+            case 80:
+                PhotonNetwork.RaiseEvent(Utility.Toggle80FOV, null, raiseEventOptions, SendOptions.SendReliable);
+                break;
+
+
+        }
+    }
     public void LoadButtonClicked(int num)
     {
         loadFromFile(positionDataPath);
@@ -283,12 +275,5 @@ public class PhoneScript : MonoBehaviourPunCallbacks
         // object[] content = new object[] {"hiiiiiii"}; // Array contains the target position and the IDs of the selected units
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others }; // You would have to set the Receivers to All in order to receive this event on the local client as well
         PhotonNetwork.RaiseEvent(Utility.ToggleOneEyeEventCode, null, raiseEventOptions, SendOptions.SendReliable);
-    }
-
-    public void ToggleOneEyeFlash()
-    {
-        // object[] content = new object[] {"hiiiiiii"}; // Array contains the target position and the IDs of the selected units
-        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others }; // You would have to set the Receivers to All in order to receive this event on the local client as well
-        PhotonNetwork.RaiseEvent(Utility.ToggleOneEyeFlashEventCode, null, raiseEventOptions, SendOptions.SendReliable);
     }
 }
