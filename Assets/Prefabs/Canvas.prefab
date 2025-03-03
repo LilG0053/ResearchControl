@@ -545,7 +545,7 @@ GameObject:
   - component: {fileID: 890148023763453294}
   - component: {fileID: 3622184802386069031}
   m_Layer: 5
-  m_Name: SetWhite
+  m_Name: SetBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1035,7 +1035,7 @@ GameObject:
   - component: {fileID: 8146914336907202992}
   - component: {fileID: 2459304414775960254}
   m_Layer: 5
-  m_Name: SetBlue
+  m_Name: SetWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
