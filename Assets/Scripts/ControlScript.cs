@@ -7,9 +7,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine.EventSystems;
 
-public class ContolScript : MonoBehaviourPunCallbacks
+public class ControlScript : MonoBehaviourPunCallbacks
 {
+    public Color buttonDepressedColor = new Color(1.0f, 1.0f, 1.0f);
+    public Color buttonPressedColor = new Color(0.6f, 0.6f, 0.6f);
+
     struct LeftRightPosition
     {
         public int leftRights; // negative value indicates left, positive value indicates right
@@ -275,5 +279,16 @@ public class ContolScript : MonoBehaviourPunCallbacks
         // object[] content = new object[] {"hiiiiiii"}; // Array contains the target position and the IDs of the selected units
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others }; // You would have to set the Receivers to All in order to receive this event on the local client as well
         PhotonNetwork.RaiseEvent(Utility.ToggleOneEyeEventCode, null, raiseEventOptions, SendOptions.SendReliable);
+    }
+
+    public void ToggleButtonColor()
+    {
+        GameObject clickedButton = EventSystem.current.currentSelectedGameObject;
+        if (clickedButton.GetComponent<UnityEngine.UI.Image>().color == buttonDepressedColor)
+            clickedButton.GetComponent<UnityEngine.UI.Image>().color = buttonPressedColor;
+        else
+        {
+            clickedButton.GetComponent<UnityEngine.UI.Image>().color = buttonDepressedColor;
+        }
     }
 }
