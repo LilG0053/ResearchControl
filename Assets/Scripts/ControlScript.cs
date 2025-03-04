@@ -297,8 +297,25 @@ public class ControlScript : MonoBehaviourPunCallbacks
     public void ToggleButtonColor()
     {
         GameObject clickedButton = EventSystem.current.currentSelectedGameObject;
+
+        Transform parent = clickedButton.transform.parent;
+
+        if (parent != null && parent.name.Contains("Group"))
+        {
+            foreach (Transform child in parent)
+            {
+                GameObject button = child.gameObject;
+                if (button != clickedButton)
+                {
+                    child.gameObject.GetComponent<UnityEngine.UI.Image>().color = buttonDepressedColor;
+                }
+            }
+        }
+
         if (clickedButton.GetComponent<UnityEngine.UI.Image>().color == buttonDepressedColor)
+        {
             clickedButton.GetComponent<UnityEngine.UI.Image>().color = buttonPressedColor;
+        }
         else
         {
             clickedButton.GetComponent<UnityEngine.UI.Image>().color = buttonDepressedColor;
