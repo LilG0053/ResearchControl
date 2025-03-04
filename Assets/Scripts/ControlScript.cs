@@ -8,6 +8,9 @@ using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine.EventSystems;
+using System.Diagnostics;
+
+using Debug = UnityEngine.Debug;
 
 public class ControlScript : MonoBehaviourPunCallbacks
 {
@@ -119,6 +122,7 @@ public class ControlScript : MonoBehaviourPunCallbacks
         // object[] content = new object[] {"hiiiiiii"}; // Array contains the target position and the IDs of the selected units
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others }; // You would have to set the Receivers to All in order to receive this event on the local client as well
         PhotonNetwork.RaiseEvent(Utility.ShowScreenEventCode, null, raiseEventOptions, SendOptions.SendReliable);
+        Debug.Log("Flash pressed");
     }
 
     public void ScaleUpButtonClicked()

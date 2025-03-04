@@ -36,10 +36,13 @@ public class AutoFlashController : MonoBehaviour
             Debug.Log("Number of matches found is: " + matches.Count);
             foreach (Match match in matches)
             {
-                bool isCrash = match.Groups[1].Value == "Crash";
+                Debug.Log("Execution");
+                Debug.Log("Crash value:" + match.Groups[1].Value);
+                bool isCrash = match.Groups[0].Value == "Crash";
                 int duration = int.Parse(match.Groups[2].Value);
                 intervals.Add((isCrash, duration));
             }
+            Debug.Log("Intervals count is: " + intervals.Count);
         }
         if (autoToggleCoroutine == null)
         {
