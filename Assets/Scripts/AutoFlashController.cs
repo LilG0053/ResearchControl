@@ -93,21 +93,18 @@ public class AutoFlashController : MonoBehaviour
                 Debug.Log("Pausing lap processing...");
             }
         }
-        else
+        else if (currentLapIndex < lapIntervals.Count)
         {
             // Start the processing if not running
-            if (currentLapIndex < lapIntervals.Count)
-            {
-                isProcessing = true;
-                isPaused = false;
-                autoToggleCoroutine = StartCoroutine(AutoToggleCoroutine());
-                Debug.Log("Starting lap processing...");
-                currentLapIndex++; // Move to next lap
-            }
-            else
-            {
-                Debug.Log("All laps completed.");
-            }
+            isProcessing = true;
+            isPaused = false;
+            autoToggleCoroutine = StartCoroutine(AutoToggleCoroutine());
+            Debug.Log("Starting lap processing...");
+            currentLapIndex++; // Move to next lap
+        }
+        else
+        {
+            Debug.Log("All laps completed.");
         }
     }
 }
