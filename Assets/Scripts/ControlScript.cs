@@ -31,6 +31,7 @@ public class ControlScript : MonoBehaviourPunCallbacks
     private LeftRightPosition currentPosition = new LeftRightPosition{leftRights=0, leftRightJs=0, leftRights1=0, leftRightJs1=0, leftRights2=0, leftRightJs2=0};
 
     private string positionDataPath;
+    private bool isFlashing = false;
 
     private void Awake()
     {
@@ -121,7 +122,15 @@ public class ControlScript : MonoBehaviourPunCallbacks
     {
         // object[] content = new object[] {"hiiiiiii"}; // Array contains the target position and the IDs of the selected units
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others }; // You would have to set the Receivers to All in order to receive this event on the local client as well
-        PhotonNetwork.RaiseEvent(Utility.ShowScreenEventCode, null, raiseEventOptions, SendOptions.SendReliable);
+        //Toggles
+        isFlashing = !isFlashing;
+        if (isFlashing)
+        {
+            PhotonNetwork.RaiseEvent(Utility.ShowScreenEventCode, null, raiseEventOptions, SendOptions.SendReliable);
+        } else 
+        {
+            PhotonNetwork.RaiseEvent(Utility.HideScreenEventCode, null, raiseEventOptions, SendOptions.SendReliable);
+        } 
         Debug.Log("Flash pressed");
     }
 

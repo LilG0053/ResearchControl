@@ -838,6 +838,12 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1577027714}
+    - target: {fileID: 7936851656110928578, guid: c1e57159043ab4071bfdf90daba58ef7, type: 3}
+      propertyPath: m_Text
+      value: 'Flash!
+
+        Toggle!'
+      objectReference: {fileID: 0}
     - target: {fileID: 7990491231636516588, guid: c1e57159043ab4071bfdf90daba58ef7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
