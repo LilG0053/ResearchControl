@@ -26,6 +26,12 @@ public class ControlScript : MonoBehaviourPunCallbacks
         public int leftRights2; // negative value indicates left, positive value indicates right
         public int leftRightJs2; // negative value indicates left, positive value indicates right
     }
+
+    public enum AspectRatio {
+        Square,
+        Wide,
+        Tall
+    }
     
     private LeftRightPosition savedPosition = new LeftRightPosition{leftRights=0, leftRightJs=0, leftRights1=0, leftRightJs1=0, leftRights2=0, leftRightJs2=0};
     private LeftRightPosition currentPosition = new LeftRightPosition{leftRights=0, leftRightJs=0, leftRights1=0, leftRightJs1=0, leftRights2=0, leftRightJs2=0};
@@ -201,6 +207,24 @@ public class ControlScript : MonoBehaviourPunCallbacks
 
         }
     }
+
+    public void SelectAspectRatio(string aspectRatio)
+    {
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others }; // You would have to set the Receivers to All in order to receive this event on the local client as well
+        if (aspectRatio == "Square") 
+        {
+            PhotonNetwork.RaiseEvent(Utility.ToggleSquareAspectRatio, null, raiseEventOptions, SendOptions.SendReliable);
+        }
+        else if (aspectRatio == "Wide") 
+        {
+            PhotonNetwork.RaiseEvent(Utility.ToggleWideAspectRatio, null, raiseEventOptions, SendOptions.SendReliable);
+        }
+        else if (aspectRatio == "Tall") 
+        {
+            PhotonNetwork.RaiseEvent(Utility.ToggleTallAspectRatio, null, raiseEventOptions, SendOptions.SendReliable);
+        }
+    }
+
     public void LoadButtonClicked(int num)
     {
         loadFromFile(positionDataPath);
