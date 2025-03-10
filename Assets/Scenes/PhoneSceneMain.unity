@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028356, g: 0.2257137, b: 0.3069222, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -429,6 +429,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 39705094428804486, guid: c1e57159043ab4071bfdf90daba58ef7, type: 3}
+      propertyPath: m_Name
+      value: 80FOV
+      objectReference: {fileID: 0}
     - target: {fileID: 267480337804499679, guid: c1e57159043ab4071bfdf90daba58ef7, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -529,6 +533,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1577027714}
+    - target: {fileID: 1453773393379468929, guid: c1e57159043ab4071bfdf90daba58ef7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2459304414775960254, guid: c1e57159043ab4071bfdf90daba58ef7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -565,6 +573,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1577027715}
+    - target: {fileID: 4217773365928344034, guid: c1e57159043ab4071bfdf90daba58ef7, type: 3}
+      propertyPath: m_Text
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 4396643289524587818, guid: c1e57159043ab4071bfdf90daba58ef7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -589,6 +601,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1577027714}
+    - target: {fileID: 4861592320955812493, guid: c1e57159043ab4071bfdf90daba58ef7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5337288527857196268, guid: c1e57159043ab4071bfdf90daba58ef7, type: 3}
+      propertyPath: m_Name
+      value: 90FOV
+      objectReference: {fileID: 0}
     - target: {fileID: 5699864744421386001, guid: c1e57159043ab4071bfdf90daba58ef7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -609,6 +629,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1577027714}
+    - target: {fileID: 6323427521763485749, guid: c1e57159043ab4071bfdf90daba58ef7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6479128017981226624, guid: c1e57159043ab4071bfdf90daba58ef7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -617,10 +641,22 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1577027714}
+    - target: {fileID: 6479128017981226624, guid: c1e57159043ab4071bfdf90daba58ef7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6612484342448553254, guid: c1e57159043ab4071bfdf90daba58ef7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1577027714}
+    - target: {fileID: 6729483286833923275, guid: c1e57159043ab4071bfdf90daba58ef7, type: 3}
+      propertyPath: m_Name
+      value: 70FOV
+      objectReference: {fileID: 0}
+    - target: {fileID: 7229983722929251998, guid: c1e57159043ab4071bfdf90daba58ef7, type: 3}
+      propertyPath: m_Text
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 7648605922234523019, guid: c1e57159043ab4071bfdf90daba58ef7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -645,6 +681,12 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1577027714}
+    - target: {fileID: 8758984973403531494, guid: c1e57159043ab4071bfdf90daba58ef7, type: 3}
+      propertyPath: m_Text
+      value: '70
+
+'
+      objectReference: {fileID: 0}
     - target: {fileID: 8812196675218553660, guid: c1e57159043ab4071bfdf90daba58ef7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

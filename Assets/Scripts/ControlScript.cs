@@ -191,17 +191,17 @@ public class ControlScript : MonoBehaviourPunCallbacks
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others }; // You would have to set the Receivers to All in order to receive this event on the local client as well
         switch (FOV)
         {
-            case 30:
-                PhotonNetwork.RaiseEvent(Utility.Toggle30FOV, null, raiseEventOptions, SendOptions.SendReliable);
+            case 1:
+                PhotonNetwork.RaiseEvent(Utility.ToggleFOV1, null, raiseEventOptions, SendOptions.SendReliable);
                 break;
-            case 60:
-                PhotonNetwork.RaiseEvent(Utility.Toggle60FOV, null, raiseEventOptions, SendOptions.SendReliable);
+            case 2:
+                PhotonNetwork.RaiseEvent(Utility.ToggleFOV2, null, raiseEventOptions, SendOptions.SendReliable);
                 break;
-            case 70:
-                PhotonNetwork.RaiseEvent(Utility.Toggle70FOV, null, raiseEventOptions, SendOptions.SendReliable);
+            case 3:
+                PhotonNetwork.RaiseEvent(Utility.ToggleFOV3, null, raiseEventOptions, SendOptions.SendReliable);
                 break;
-            case 80:
-                PhotonNetwork.RaiseEvent(Utility.Toggle80FOV, null, raiseEventOptions, SendOptions.SendReliable);
+            case 4:
+                PhotonNetwork.RaiseEvent(Utility.ToggleFOV4, null, raiseEventOptions, SendOptions.SendReliable);
                 break;
 
 
