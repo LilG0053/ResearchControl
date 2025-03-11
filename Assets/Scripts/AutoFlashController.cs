@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Text.RegularExpressions;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 using Debug = UnityEngine.Debug;
 public class AutoFlashController : MonoBehaviour
@@ -106,5 +106,44 @@ public class AutoFlashController : MonoBehaviour
         {
             Debug.Log("All laps completed.");
         }
+    }
+
+    public void SetCurrentLapIndex()
+    {
+        GameObject selectedObj = EventSystem.current.currentSelectedGameObject;
+        if (selectedObj == null)
+        {
+            Debug.LogError("No object selected.");
+            return;
+        }
+
+        TMP_InputField lapInputField = selectedObj.GetComponent<TMP_InputField>();
+        if (lapInputField == null)
+        {
+            Debug.LogError("Selected object does not have a TMP_InputField component!");
+            return;
+        }
+
+        string lapString = lapInputField.text; // Get text directly from the InputField
+
+        if (int.TryParse(lapString, out int lapNumber))
+        {
+            if (lapNumber >= 0 && lapNumber <= lapIntervals.Count)
+            {
+                currentLapIndex = lapNumber;
+                Debug.Log("Current lap set to: " + currentLapIndex);
+
+            }
+            else
+            {
+                Debug.LogError("Invalid lap number: " + lapNumber);
+            }
+        }
+        else
+        {
+            Debug.LogError("Invalid input: '" + lapString + "' is not a valid number.");
+        }
+
+        lapInputField.text = ""; // Clear the input field;
     }
 }
