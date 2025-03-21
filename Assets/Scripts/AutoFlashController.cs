@@ -52,22 +52,22 @@ public class AutoFlashController : MonoBehaviour
 
     private IEnumerator AutoToggleCoroutine()
     {
+        isProcessing = true; // signifify the start of executing the laps
         var currentLap = lapIntervals[currentLapIndex];
-        Debug.Log("Current lap index is: " + currentLapIndex);
+        Debug.Log("-----------Current lap index is: " + currentLapIndex);
         Debug.Log("current lap count: " + currentLap.Count.ToString());
         intervalIndex = 0;
         while (intervalIndex < currentLap.Count)
         {
+            Debug.Log("Interval index is: " + intervalIndex);
+
             if (intervalIndex == 0)
             {
-                Debug.Log("Interval index is: " + intervalIndex);
                 //first interval starts as a non-crash:
                 yield return new WaitForSeconds(currentLap[0].duration);
             } else
             {
-                Debug.Log("Interval index is : " + intervalIndex);
                 var interval = currentLap[intervalIndex];
-
                 //toggle flashbutton
                 FlashButton.GetComponent<UnityEngine.UI.Button>().onClick.Invoke();
                 //waits for interval specified duration
@@ -75,7 +75,7 @@ public class AutoFlashController : MonoBehaviour
             }
             intervalIndex++;
         }
-        //Its done executing the laps
+        //It's done executing the laps
         isProcessing = false;
         //exit coroutine
         yield break;
@@ -91,24 +91,24 @@ public class AutoFlashController : MonoBehaviour
                 // If the process is paused, unpause it
                 isPaused = false;
                 Debug.Log("Resuming lap processing...");
-                StopCoroutine(AutoToggleCoroutine());
+                currentLapIndex++; // Move to next lap
+                autoToggleCoroutine = StartCoroutine(AutoToggleCoroutine());
             }
             else
             {
                 // If the process is running, pause it
                 isPaused = true;
                 Debug.Log("Pausing lap processing...");
-                autoToggleCoroutine = StartCoroutine(AutoToggleCoroutine());
+                StopCoroutine(AutoToggleCoroutine());
             }
         }
         else if (currentLapIndex < lapIntervals.Count)
         {
             // Start the processing if not running
-            isProcessing = true;
             isPaused = false;
+            currentLapIndex++; // Move to next lap
             autoToggleCoroutine = StartCoroutine(AutoToggleCoroutine());
             Debug.Log("Starting lap processing...");
-            currentLapIndex++; // Move to next lap
         }
         else
         {
@@ -143,7 +143,7 @@ public class AutoFlashController : MonoBehaviour
                 //reset intervalindex
                 intervalIndex = 0;
                 Debug.Log("Current lap set to: " + currentLapIndex);
-                StartCoroutine(AutoToggleCoroutine());
+                autoToggleCoroutine = StartCoroutine(AutoToggleCoroutine());
 
             }
             else
@@ -156,6 +156,6 @@ public class AutoFlashController : MonoBehaviour
             Debug.Log("Invalid input: '" + lapString + "' is not a valid number.");
         }
 
-        lapInputField.text = ""; // Clear the input field;
+        lapInputField.text = ""; // Clear the input field
     }
 }

@@ -322,6 +322,11 @@ public class ControlScript : MonoBehaviourPunCallbacks
     {
         GameObject clickedButton = EventSystem.current.currentSelectedGameObject;
 
+        if (clickedButton == null)
+        {
+            return;
+        }
+
         Transform parent = clickedButton.transform.parent;
 
         if (parent != null && parent.name.Contains("Group"))
