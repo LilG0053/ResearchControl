@@ -203,8 +203,12 @@ public class ControlScript : MonoBehaviourPunCallbacks
             case 4:
                 PhotonNetwork.RaiseEvent(Utility.ToggleFOV4, null, raiseEventOptions, SendOptions.SendReliable);
                 break;
-
-
+            case 5:
+                PhotonNetwork.RaiseEvent(Utility.ToggleFOV5, null, raiseEventOptions, SendOptions.SendReliable);
+                break;
+            case 6:
+                PhotonNetwork.RaiseEvent(Utility.ToggleFOV6, null, raiseEventOptions, SendOptions.SendReliable);
+                break;
         }
     }
 
